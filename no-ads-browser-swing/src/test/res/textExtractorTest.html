@@ -1,0 +1,68 @@
+<html class="">
+	<head>
+		<title>HTML Page 1</title>
+		<style type="text/css" class="class1">
+		.class1.class2 .class3 {  position: absolute;  top: 5px;  right: 25px;}
+		</style>
+		<link rel="manifest" href="first.json">
+		<script src="//abc.com/jscript1.js" async></script>
+	</head>
+	<body>
+		<form action="/action_page.php" method="get">
+			First name: <input type="text" name="fname"><br>
+			Last name: <input type="text" name="lname"><br>
+			<input type="submit" value="Submit">
+			 <button type="button">Button 1</button> 
+		</form> 
+		<button type="button">Button 2</button> 
+		<p>Paragraph content</p>
+		<p>The <b>quick <i>brown</i> fox <a href="">jumps</a> over </b> the lazy dog</p>
+		<script>
+			var para = document.createElement("p");
+			var node = document.createTextNode("This is created from javascript");
+			para.appendChild(node);
+			var element = document.getElementById("div1");
+			element.appendChild(para);
+		</script>
+		<div class="class2">
+			<ul>
+				<li>List Item<svg><use xlink:href="#iconset-star" /></svg></li>
+				<li><button type="button">Button 3</button></li>
+			</ul>
+			<button>
+				<span>
+					<svg>
+						<use xlink:href="#iconset-trashcan" />
+					</svg>
+				</span>
+			</button>
+			<span class="class3">Some text content</span>
+			 <span class="class3">
+			 	<figure>
+				 	<div>
+						<picture>
+							<source data-srcset="https://abc.com/img3.jpg" media="--small">
+							<source data-srcset="https://abc.com/img3.jpg" media="--xlarge">
+							<source data-srcset="https://abc.com/img3.jpg">
+							<img src="https://abc.com/img3.jpg" data-sizes="auto" data-width="640" data-chomp-id="17pnx85tw0fgfjpg" data-format="jpg">
+						</picture>
+					</div>
+				</figure>
+			</span>
+		</div>
+		 <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+		</canvas> 
+		<noscript>
+			<img src="/images/img1.jpg" width="1" height="1" border="0">
+		</noscript>
+		<img height="1" width="1" alt="" src="https://abc.com/track?id=1"> 
+		<map name="planetmap">
+			<area shape="rect" coords="0,0,82,126" href="sun.htm" alt="Sun">
+			<area shape="circle" coords="90,58,3" href="mercur.htm" alt="Mercury">
+			<area shape="circle" coords="124,58,8" href="venus.htm" alt="Venus">
+		</map>
+		<iframe src="demo_iframe.htm" height="200" width="300"></iframe>
+	</body>
+	<link rel="manifest" href="https://second.json">
+	<script src="//abc.com/jscript2.js" defer></script>
+</html>

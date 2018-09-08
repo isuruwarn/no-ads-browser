@@ -1,0 +1,12 @@
+<mvc:View controllerName="sap.m.sample.TabContainer.TabContainer"
+		height="100%"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns:html="http://www.w3.org/1999/xhtml"
+		xmlns="sap.m">
+	<TabContainer id="myTabContainer" width="100%"
+			showAddNewButton="true" class="sapUiResponsiveContentPadding"
+			addNewButtonPress="addNewButtonPressHandler" itemClose="itemCloseHandler">
+		<items>
+		</items>
+	</TabContainer>
+</mvc:View>
