@@ -1,0 +1,9 @@
+.sapUiUfdShellBackground, .sapMGlobalBackgroundColor {
+	background-color: transparent !important;
+	background-image: none !important;
+}
+
+.sapMShellGlobalInnerBackground {
+	background-image: none !important;
+}
+

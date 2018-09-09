@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta charset="utf-8">
 
-		<title>Tab Container</title>
+		<title>No Ads Browser</title>
 
 		<script id="sap-ui-bootstrap"
 			src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
@@ -14,24 +14,23 @@
 			data-sap-ui-xx-bindingSyntax="complex"
 			data-sap-ui-preload="async"
 			data-sap-ui-compatVersion="edge"
-			data-sap-ui-resourceroots='{"sap.m.sample.TabContainer": "./", "sap.ui.demo.mock": "mockdata"}'>
+			data-sap-ui-resourceroots='{"org.warn.no-ads-browser": "resources/org/warn/no-ads-browser"}'>
 		</script>
 
 		<!-- Application launch configuration -->
 		<script>
-
+			//jQuery.sap.registerModulePath("org.warn.no-ads-browser", "org/warn/no-ads-browser");
 			sap.ui.getCore().attachInit(function() {
-
 				new sap.m.App ({
 					pages : [
 						new sap.m.Page({
-							title : "Tab Container",
+							title : "No Ads Browser",
 							enableScrolling : true,
 							content : [
 								new sap.ui.core.ComponentContainer({
-									name : "sap.m.sample.TabContainer",
+									name : "org.warn.no-ads-browser",
 									settings : {
-										id : "sap.m.sample.TabContainer"
+										id : "org.warn.no-ads-browser"
 									}
 								})
 							]

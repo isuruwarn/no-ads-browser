@@ -1,10 +1,10 @@
-<mvc:View controllerName="sap.m.sample.TabContainer.TabContainer"
+<mvc:View controllerName="org.warn.no-ads-browser.controller.TabContainer"
 		height="100%"
 		xmlns:mvc="sap.ui.core.mvc"
 		xmlns:html="http://www.w3.org/1999/xhtml"
 		xmlns="sap.m">
-	<TabContainer id="myTabContainer" width="100%"
-			showAddNewButton="true" class="sapUiResponsiveContentPadding"
+	<TabContainer id="browserTabContainer" width="100%"
+			showAddNewButton="true" class="sapUiResponsiveContentPadding sapMShellGlobalInnerBackground"
 			addNewButtonPress="addNewButtonPressHandler" itemClose="itemCloseHandler">
 		<items>
 		</items>

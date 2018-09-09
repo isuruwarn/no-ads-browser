@@ -1,14 +1,21 @@
-sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap/m/MessageToast', 'sap/m/TabContainerItem', 'sap/m/MessageBox'],
-	function (Controller, JSONModel, MessageToast, TabContainerItem, MessageBox) {
+sap.ui.define([
+	'sap/ui/core/mvc/Controller', 
+	'sap/ui/model/json/JSONModel', 
+	'sap/m/MessageToast', 
+	'sap/m/TabContainerItem', 
+	'sap/m/MessageBox'
+	],
+	function( Controller, JSONModel, MessageToast, TabContainerItem, MessageBox ) {
+		
 		"use strict";
 
-		return Controller.extend("sap.m.sample.TabContainer.TabContainer", {
+		return Controller.extend("org.warn.no-ads-browser.TabContainer", {
 			
 			svcUrl: null,
 			selectedTabItem: null,
 			
 			onInit: function () {
-				this.svcUrl = 'http://localhost:8080/htmlproxy-web/svc/rs';
+				this.svcUrl = '/no-ads-browser-web/svc/rs';
 				this.createNewTab();
 			},
 			
@@ -66,7 +73,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap
 				
 			},
 			
-			options: function() {
+			settings: function() {
 				
 			},
 
@@ -75,9 +82,9 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap
 			},
 			
 			createNewTab: function() {
-				var newTab = sap.ui.xmlfragment( "sap.m.sample.TabContainer.TabContainerItem", this );
+				var newTab = sap.ui.xmlfragment( "org.warn.no-ads-browser.view.TabContainerItem", this );
 				//this.getView().addDependent(newTab);
-				var tabContainer = this.byId("myTabContainer");
+				var tabContainer = this.byId("browserTabContainer");
 				tabContainer.addItem( newTab );
 				tabContainer.setSelectedItem( newTab );
 				this.selectedTabItem = newTab;
@@ -88,4 +95,5 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap
 			}
 			
 		});
-	});
+	}
+);

@@ -9,8 +9,8 @@
 			<l:HorizontalLayout width="100%">
 			<!--FlexBox justifyContent="Start" width="100%"-->
 				<Input value="{/url}" fieldWidth="70%"/>
-				<Button text="{i18n>goButtonText}" press="go"/>
-				<Button text="{i18n>optionsButtonText}" press="options"/>
+				<Button text="{i18n>GO_BTN_TEXT}" press="go"/>
+				<Button text="{i18n>SETTINGS_BTN_TEXT}" press="settings"/>
 			<!--/FlexBox-->
 			</l:HorizontalLayout>
 		</content>
