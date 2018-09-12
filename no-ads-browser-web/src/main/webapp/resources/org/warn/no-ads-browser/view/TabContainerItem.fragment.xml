@@ -3,16 +3,20 @@
 	xmlns:core="sap.ui.core"
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
 	xmlns="sap.m">
 	<TabContainerItem name="{/title}" modified="false" width="100%">
-		<content>
-			<l:HorizontalLayout width="100%">
-			<!--FlexBox justifyContent="Start" width="100%"-->
-				<Input value="{/url}" fieldWidth="70%"/>
+		<content width="100%">
+			<!--
+			<HBox justifyContent="Start" width="100%">
+				<Input value="{/url}" width="70%"/>
 				<Button text="{i18n>GO_BTN_TEXT}" press="go"/>
 				<Button text="{i18n>SETTINGS_BTN_TEXT}" press="settings"/>
-			<!--/FlexBox-->
-			</l:HorizontalLayout>
+			</HBox>
+			-->
+			<Input value="{/url}" width="70%"/>
+			<Button text="{i18n>GO_BTN_TEXT}" press="go"/>
+			<Button text="{i18n>SETTINGS_BTN_TEXT}" press="settings"/>
 		</content>
 	</TabContainerItem>
 </core:FragmentDefinition>

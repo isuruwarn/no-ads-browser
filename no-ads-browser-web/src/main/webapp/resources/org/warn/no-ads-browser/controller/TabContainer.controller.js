@@ -56,7 +56,7 @@ sap.ui.define([
 			go: function(oEvent) {
 				
 				var cntrlrObj = this;
-				var url = this.oSelectedTabItem.getContent()[0].getContent()[0].getValue();
+				var url = this.oSelectedTabItem.getContent()[0].getValue();
 				
 				if( url && url!="" ) {
 					
@@ -92,8 +92,8 @@ sap.ui.define([
 								//var content = "<iframe srcdoc=\"" + data.output + "\"></iframe>";
 								var html = new sap.ui.core.HTML();
 								html.setContent(content);
-								cntrlrObj.oSelectedTabItem.removeContent(1);
-								cntrlrObj.oSelectedTabItem.insertContent( html, 1 );
+								cntrlrObj.oSelectedTabItem.removeContent(3);
+								cntrlrObj.oSelectedTabItem.insertContent( html, 3 );
 								cntrlrObj.saveUrl( data.url );
 							}
 						},
@@ -122,7 +122,7 @@ sap.ui.define([
 
 			tabCloseHandler: function(oEvent) {
 				var tabToClose = oEvent.getParameter('item');
-				var url = tabToClose.getContent()[0].getContent()[0].getValue();
+				var url = tabToClose.getContent()[0].getValue();
 				var i = this.prevSessionUrls.indexOf( url );
 				if( i != -1 ) {
 					this.prevSessionUrls.splice( i, 1 );
