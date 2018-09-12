@@ -50,19 +50,6 @@ public class HtmlProcessor {
 		if( data != null && data.length()>0 ) {
 			Document doc = Jsoup.parse( data.toString() );
 			if( doc != null ) {
-				//sanitize( doc.children() );
-//				boolean cssDisabled = Boolean.valueOf( ReaderConfig.getProperty( ReaderConfig.PROP_DISABLE_CSS ) );
-//				if( cssDisabled ) {
-//					//removeCss( doc.children() );
-//					removeCss( doc );
-//				}
-//				boolean imagesDisabled = Boolean.valueOf( ReaderConfig.getProperty( ReaderConfig.PROP_DISABLE_IMAGES ) );
-//				if( imagesDisabled ) {
-//					//removeImages( doc.children() );
-//					removeImages( doc );
-//				}
-//				boolean removeMetaTags = Boolean.valueOf( ReaderConfig.getProperty( ReaderConfig.PROP_REMOVE_META_TAGS ) );
-//				boolean removeDataAttrs = Boolean.valueOf( ReaderConfig.getProperty( ReaderConfig.PROP_REMOVE_DATA_ATTRS ) );
 				sanitize( doc, cssDisabled, imagesDisabled, removeMetaTags, removeDataAttrs );
 				dto = new Page();
 				dto.setDocument(doc);
@@ -73,32 +60,6 @@ public class HtmlProcessor {
 		}
 		return dto;
 	}
-	
-//	public static void sanitize( Elements elements ) {
-//		for( Element el: elements ) {
-//			el.removeAttr( GlobalConstants.ONCLICK_ATTR );
-//			String tagName = el.tagName();
-//			if( BLACK_LISTED_TAGS.contains( tagName.toLowerCase() ) ) {
-//				el.remove();
-//			} else {
-//				Elements children = el.children();
-//				if( children != null && children.size() > 0 ) {
-//					sanitize(children);
-//				}
-//			}
-//		}
-//	}
-	
-//	public static void sanitize( Document doc ) {
-//		Elements elements = doc.getAllElements();
-//		for( Element el: elements ) {
-//			el.removeAttr( GlobalConstants.ONCLICK_ATTR );
-//			String tagName = el.tagName();
-//			if( BLACK_LISTED_TAGS.contains( tagName.toLowerCase() ) ) {
-//				el.remove();
-//			}
-//		}
-//	}
 	
 	public static void sanitize( Document doc, boolean cssDisabled, boolean imagesDisabled, boolean removeMetaTags, boolean removeDataAttrs ) {
 		Elements elements = doc.getAllElements();
@@ -137,66 +98,4 @@ public class HtmlProcessor {
 		}
 	}
 	
-//	public static void removeCss( Elements elements ) {
-//		for( Element el: elements ) {
-//			el.removeAttr( GlobalConstants.STYLE_ATTR );
-//			el.removeAttr( GlobalConstants.CLASS_ATTR );
-//			String tagName = el.tagName();
-//			if( CSS_TAGS.contains( tagName.toLowerCase() ) ) {
-//				el.remove();
-//			} else {
-//				Elements children = el.children();
-//				if( children != null && children.size() > 0 ) {
-//					removeCss(children);
-//				}
-//			}
-//		}
-//	}
-	
-//	public static void removeCss( Document doc ) {
-//		Elements elements = doc.getAllElements();
-//		for( Element el: elements ) {
-//			el.removeAttr( GlobalConstants.STYLE_ATTR );
-//			el.removeAttr( GlobalConstants.CLASS_ATTR );
-//			String tagName = el.tagName();
-//			if( CSS_TAGS.contains( tagName.toLowerCase() ) ) {
-//				el.remove();
-//			}
-//		}
-//	}
-	
-//	public static void removeImages( Elements elements ) {
-//		for( Element el: elements ) {
-//			String tagName = el.tagName();
-//			if( IMAGE_TAGS.contains( tagName.toLowerCase() ) ) {
-//				el.remove();
-//			} else {
-//				Elements children = el.children();
-//				if( children != null && children.size() > 0 ) {
-//					removeImages(children);
-//				}
-//			}
-//		}
-//	}
-	
-//	public static void removeImages( Document doc ) {
-//		Elements elements = doc.getAllElements();
-//		for( Element el: elements ) {
-//			String tagName = el.tagName();
-//			if( IMAGE_TAGS.contains( tagName.toLowerCase() ) ) {
-//				el.remove();
-//			}
-//		}
-//	}
-	
-//	public static void removeMetaTags( Document doc ) {
-//		Elements elements = doc.getAllElements();
-//		for( Element el: elements ) {
-//			String tagName = el.tagName();
-//			if( GlobalConstants.META_TAG.equals( tagName.toLowerCase() ) ) {
-//				el.remove();
-//			}
-//		}
-//	}
-
 }

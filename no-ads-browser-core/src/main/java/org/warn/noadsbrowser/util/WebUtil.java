@@ -17,10 +17,11 @@ public class WebUtil {
 			if( !url.startsWith( GlobalConstants.FILE_PROTOCOL ) ) {
 				url = url.replaceAll(" ", "+");
 			}
+			
 			if( url.startsWith(GOOGLE_URL_PATTERN) ) {
 				url = getTargetUrl( url, GOOGLE_URL_PATTERN, "url=" );
-			}
-			if( url.startsWith(FACEBOOK_URL_PATTERN) ) {
+			
+			} else if( url.startsWith(FACEBOOK_URL_PATTERN) ) {
 				url = getTargetUrl( url, FACEBOOK_URL_PATTERN, "u=" );
 			}
 		}
