@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified">
+	<u:Menu>
+		<u:MenuItem text="{i18n>HTML_VIEW_MENU_TEXT}" select="handleMenuItemPress" icon="{= ${/htmlView} ? 'sap-icon://accept' : ''  }"/>
+		<u:MenuItem text="{i18n>TEXT_VIEW_MENU_TEXT}" select="handleMenuItemPress" icon="{= ${/plainTextView} ? 'sap-icon://accept' : ''  }"/>
+		<u:MenuItem text="{i18n>VIEW_INPUT_MENU_TEXT}" select="handleMenuItemPress" startsSection="true" />
+		<u:MenuItem text="{i18n>VIEW_OUTPUT_MENU_TEXT}" select="handleMenuItemPress" />
+		<u:MenuItem text="{i18n>DISABLE_CSS_MENU_TEXT}" select="handleMenuItemPress" startsSection="true" icon="{= ${/cssDisabled} ? 'sap-icon://accept' : ''  }"/>
+		<u:MenuItem text="{i18n>DISABLE_IMGS_MENU_TEXT}" select="handleMenuItemPress" icon="{= ${/imagesDisabled} ? 'sap-icon://accept' : ''  }"/>
+		<u:MenuItem text="{i18n>REMOVE_META_TAGS_MENU_TEXT}" select="handleMenuItemPress" icon="{= ${/removeMetaTags} ? 'sap-icon://accept' : ''  }"/>
+		<u:MenuItem text="{i18n>CLEAR_CACHE_MENU_TEXT}" select="handleMenuItemPress" startsSection="true" />
+	</u:Menu>
+</core:FragmentDefinition>

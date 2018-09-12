@@ -5,6 +5,7 @@ public class PageDTO {
 	private String url;
 	private String title;
 	private String message;
+	private StringBuilder input;
 	private StringBuilder output;
 	
 	public String getUrl() {
@@ -24,6 +25,12 @@ public class PageDTO {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public StringBuilder getInput() {
+		return input;
+	}
+	public void setInput(StringBuilder input) {
+		this.input = input;
 	}
 	public StringBuilder getOutput() {
 		return output;
