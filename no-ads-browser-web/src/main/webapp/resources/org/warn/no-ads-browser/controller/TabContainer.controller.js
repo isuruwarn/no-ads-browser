@@ -62,6 +62,7 @@ sap.ui.define([
 					
 					sap.ui.core.BusyIndicator.show();
 					
+					url = url.trim();
 					var queryStr = "?nbturl=" + url + '&nbtxt=' + this.oSettings.plainTextView + '&nbcss=' + this.oSettings.cssDisabled 
 						+ '&nbimgs=' + this.oSettings.imagesDisabled + '&nbmeta=' + this.oSettings.removeMetaTags;
 					
@@ -87,7 +88,7 @@ sap.ui.define([
 									output: data.output
 								});
 								cntrlrObj.oSelectedTabItem.setModel(oModel);
-								var content = "<div id=\"wrapper\"><br><br>" + data.output + "</div>";
+								var content = "<div id=\"wrapper\" class=\"transparentBg\"><br><br>" + data.output + "</div>";
 								//var content = "<iframe srcdoc=\"" + data.output + "\"></iframe>";
 								var html = new sap.ui.core.HTML();
 								html.setContent(content);

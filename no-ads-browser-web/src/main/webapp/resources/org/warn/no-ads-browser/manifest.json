@@ -50,11 +50,9 @@
 		},
 		"resources": {
 			"js": [],
-			"css": [
-				{
-					"uri": "css/style.css"
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}]
 		},
 		"dependencies": {
 			"minUI5Version": "1.56.0",

@@ -4,7 +4,7 @@
 		xmlns:html="http://www.w3.org/1999/xhtml"
 		xmlns="sap.m">
 	<TabContainer id="browserTabContainer" width="100%"
-			showAddNewButton="true" class="sapUiResponsiveContentPadding sapMShellGlobalInnerBackground"
+			showAddNewButton="true" class="sapUiResponsiveContentPadding"
 			addNewButtonPress="newTabHandler" itemClose="tabCloseHandler">
 		<items>
 		</items>
