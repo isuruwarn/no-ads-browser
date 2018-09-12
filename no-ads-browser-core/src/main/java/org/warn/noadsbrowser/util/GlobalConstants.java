@@ -22,6 +22,7 @@ public class GlobalConstants {
 	public static final String SPAN_TAG = "span";
 	public static final String IMG_TAG = "img";
 	public static final String PICTURE_TAG = "picture";
+	public static final String VIDEO_TAG = "video";
 	public static final String MAP_TAG = "map";
 	public static final String FIGURE_TAG = "figure";
 	public static final String H1_TAG = "h1";

@@ -31,6 +31,7 @@ public class HtmlProcessor {
 		IMAGE_TAGS.add( GlobalConstants.IMG_TAG );
 		IMAGE_TAGS.add( GlobalConstants.PICTURE_TAG );
 		IMAGE_TAGS.add( GlobalConstants.FIGURE_TAG );
+		IMAGE_TAGS.add( GlobalConstants.VIDEO_TAG );
 	}
 	
 	public static Page process( StringBuilder data ) {

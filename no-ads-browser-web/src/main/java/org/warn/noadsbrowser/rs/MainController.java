@@ -39,6 +39,7 @@ public class MainController extends HttpServlet {
 		
 		if( url != null ) {
 			
+			url = url.trim();
 			url = WebUtil.formatUrl(url);
 			LOGGER.info( "Target URL - " + url );
 			
