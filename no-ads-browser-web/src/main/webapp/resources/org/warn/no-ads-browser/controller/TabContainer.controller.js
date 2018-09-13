@@ -4,53 +4,34 @@ sap.ui.define([
 	'sap/m/MessageToast',
 	'sap/m/Button',
 	'sap/m/Dialog',
-	'sap/m/TabContainerItem',
-	'sap/m/MessageBox'
+	'org/warn/no-ads-browser/model/SettingsManager',
+	'org/warn/no-ads-browser/model/TabManager'
 	],
-	function( Controller, JSONModel, MessageToast, Button, Dialog, TabContainerItem, MessageBox ) {
+	function( Controller, JSONModel, MessageToast, Button, Dialog, SettingsManager, TabManager ) {
 		
 		"use strict";
 
 		return Controller.extend("org.warn.no-ads-browser.TabContainer", {
 			
-			svcUrl: null,
-			settingsKey: null,
-			allUrlsKey: null,
-			prevSessionUrlsKey: null,
-			allUrls: null,
-			prevSessionUrls: null,
-			oSelectedTabItem: null,
-			oResourceModel: null,
-			oStorage: null,
-			oSettings: null,
-			
-			onInit: function () {
-				
+			onInit: function() {
 				this.svcUrl = "/no-ads-browser-web/svc/rs";
-				this.allUrlsKey = "nbAllUrls";
-				this.prevSessionUrlsKey = "nbSessionUrls";
-				this.settingsKey = "nbSettings";
-				
 				this.oResourceModel = this.getView().getModel("i18n").getResourceBundle();
-				
-				this.oStorage = jQuery.sap.storage( jQuery.sap.storage.Type.local );
-				
-				this.oSettings = this.getSettings();
-				
-				var allUrls = this.readFromStorage( this.allUrlsKey );
-				this.allUrls = allUrls?allUrls:[];
-				
-				var prevSessionUrls = this.readFromStorage( this.prevSessionUrlsKey );
-				this.prevSessionUrls = prevSessionUrls?prevSessionUrls:[];
-				this.restorePreviousTabs();
+				this.settingsManager = new SettingsManager();
+				this.tabManager = new TabManager();
+				this.tabManager.restorePreviousTabs( this );
 			},
 			
-			onItemSelected: function(oEvent) {
-				this.oSelectedTabItem = oEvent.getSource();
+			openNewTab: function() {
+				this.tabManager.createNewTab( null, this );
 			},
 			
-			newTabHandler: function() {
-				this.createNewTab( null );
+			selectTab: function(oEvent) {
+				this.oSelectedTabItem = oEvent.getParameter('item');
+			},
+			
+			closeTab: function(oEvent) {
+				var tabToClose = oEvent.getParameter('item');
+				this.tabManager.closeTab( tabToClose );
 			},
 			
 			go: function(oEvent) {
@@ -63,8 +44,9 @@ sap.ui.define([
 					sap.ui.core.BusyIndicator.show();
 					
 					url = url.trim();
-					var queryStr = "?nbturl=" + url + '&nbtxt=' + this.oSettings.plainTextView + '&nbcss=' + this.oSettings.cssDisabled 
-						+ '&nbimgs=' + this.oSettings.imagesDisabled + '&nbmeta=' + this.oSettings.removeMetaTags;
+					var oSettings = this.settingsManager.getSettings();
+					var queryStr = "?nbturl=" + url + '&nbtxt=' + oSettings.plainTextView + '&nbcss=' + oSettings.cssDisabled 
+						+ '&nbimgs=' + oSettings.imagesDisabled + '&nbmeta=' + oSettings.removeMetaTags;
 					
 					$.ajax({
 						url: this.svcUrl + queryStr,
@@ -94,7 +76,7 @@ sap.ui.define([
 								html.setContent(content);
 								cntrlrObj.oSelectedTabItem.removeContent(3);
 								cntrlrObj.oSelectedTabItem.insertContent( html, 3 );
-								cntrlrObj.saveUrl( data.url );
+								cntrlrObj.tabManager.saveUrl( data.url );
 							}
 						},
 						error : function(data){
@@ -106,7 +88,7 @@ sap.ui.define([
 				}
 			},
 			
-			settings: function(oEvent) {
+			openSettingsMenu: function(oEvent) {
 				var oButton = oEvent.getSource();
 				// create menu only once
 				if (!this.settingsMenu) {
@@ -114,165 +96,62 @@ sap.ui.define([
 					this.getView().addDependent(this.settingsMenu);
 				}
 				var eDock = sap.ui.core.Popup.Dock;
+				var settings = this.settingsManager.getSettings();
 				var settingsModel = new JSONModel();
-				settingsModel.setData( this.oSettings );
+				settingsModel.setData( settings );
 				this.settingsMenu.setModel( settingsModel );
 				this.settingsMenu.open( this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginBottom, oButton );
 			},
-
-			tabCloseHandler: function(oEvent) {
-				var tabToClose = oEvent.getParameter('item');
-				var url = tabToClose.getContent()[0].getValue();
-				var i = this.prevSessionUrls.indexOf( url );
-				if( i != -1 ) {
-					this.prevSessionUrls.splice( i, 1 );
-					this.updateStorage( this.prevSessionUrlsKey, this.prevSessionUrls );
-				}
-			},
 			
-			restorePreviousTabs: function() {
-				for( var i=0; i<this.prevSessionUrls.length; i++ ) {
-					this.createNewTab( this.prevSessionUrls[i] );
-				}
-			},
-			
-			createNewTab: function( sUrl ) {
-				var newTab = sap.ui.xmlfragment( "org.warn.no-ads-browser.view.TabContainerItem", this );
-				var sTitle = sUrl;
-				if( !sUrl ) {
-					sTitle = "New Tab";
-				}
-				var oModel = new JSONModel();
-				oModel.setData({
-					url: sUrl,
-					title: sTitle
-				});
-				newTab.setModel(oModel);
-				var tabContainer = this.byId("browserTabContainer");
-				tabContainer.addItem( newTab );
-				tabContainer.setSelectedItem( newTab );
-				this.oSelectedTabItem = newTab;
-			},
-			
-			handleMenuItemPress: function(oEvent) {
+			selectMenuItem: function(oEvent) {
 				
 				var selectedItem = oEvent.getParameter("item").getText();
 				
 				if( selectedItem == this.oResourceModel.getText("HTML_VIEW_MENU_TEXT") ) {
-					this.toggleSelectSettings( "htmlView" );
-					this.toggleSelectSettings( "plainTextView" );
+					this.settingsManager.toggleSelectSettings( "htmlView" );
+					this.settingsManager.toggleSelectSettings( "plainTextView" );
 					this.go(oEvent);
 					
 				} else if( selectedItem == this.oResourceModel.getText("TEXT_VIEW_MENU_TEXT") ) {
-					this.toggleSelectSettings( "plainTextView" );
-					this.toggleSelectSettings( "htmlView" );
+					this.settingsManager.toggleSelectSettings( "plainTextView" );
+					this.settingsManager.toggleSelectSettings( "htmlView" );
 					this.go(oEvent);
 					
 				} else if( selectedItem == this.oResourceModel.getText("VIEW_INPUT_MENU_TEXT") ) {
 					var oModel = this.oSelectedTabItem.getModel();
 					if( oModel ) {
 						var inputSrc = oModel.getData().input;
-						this.openDialog( this.oResourceModel.getText("VIEW_INPUT_DIALOG_TITLE"), inputSrc );
+						this.openContentWindow( this.oResourceModel.getText("VIEW_INPUT_DIALOG_TITLE"), inputSrc );
 					}
 					
 				} else if( selectedItem == this.oResourceModel.getText("VIEW_OUTPUT_MENU_TEXT") ) {
 					var oModel = this.oSelectedTabItem.getModel();
-					if( oModel && this.oSettings.htmlView ) {
+					var oSettings = this.settingsManager.getSettings();
+					if( oModel && oSettings.htmlView ) {
 						var outputSrc = oModel.getData().output;
-						this.openDialog( this.oResourceModel.getText("VIEW_OUTPUT_DIALOG_TITLE"), outputSrc );
+						this.openContentWindow( this.oResourceModel.getText("VIEW_OUTPUT_DIALOG_TITLE"), outputSrc );
 					}
 					
 				} else if( selectedItem == this.oResourceModel.getText("DISABLE_CSS_MENU_TEXT") ) {
-					this.toggleSelectSettings( "cssDisabled" );
+					this.settingsManager.toggleSelectSettings( "cssDisabled" );
 					this.go(oEvent);
 					
 				} else if( selectedItem == this.oResourceModel.getText("DISABLE_IMGS_MENU_TEXT") ) {
-					this.toggleSelectSettings( "imagesDisabled" );
+					this.settingsManager.toggleSelectSettings( "imagesDisabled" );
 					this.go(oEvent);
 					
 				} else if( selectedItem == this.oResourceModel.getText("REMOVE_META_TAGS_MENU_TEXT") ) {
-					this.toggleSelectSettings( "removeMetaTags" );
+					this.settingsManager.toggleSelectSettings( "removeMetaTags" );
 					this.go(oEvent);
 					
 				} else if( selectedItem == this.oResourceModel.getText("CLEAR_CACHE_MENU_TEXT") ) {
-					this.deleteFromStorage( this.allUrlsKey );
-					this.deleteFromStorage( this.prevSessionUrlsKey );
+					this.tabManager.discardUrls();
 					MessageToast.show( this.oResourceModel.getText("CACHE_CLEARED_MSG") );
 				}
 				
 			},
 			
-			readFromStorage: function( key ) {
-				return JSON.parse( this.oStorage.get( key ) );
-			},
-			
-			getSettings: function() {
-				var settings = this.readFromStorage( this.settingsKey );
-				if( settings ) {
-					return settings;
-				} else {
-					settings = {
-							htmlView: true,
-							plainTextView: false,
-							cssDisabled: false,
-							imagesDisabled: false,
-							removeMetaTags: false,
-						};
-					this.updateStorage( this.settingsKey, settings );
-					return settings;
-				}
-			},
-			
-			updateStorage: function( key, obj ) {
-				this.oStorage.put( key, JSON.stringify( obj ) );
-			},
-			
-			deleteFromStorage: function( key ) {
-				this.oStorage.remove( key );
-			},
-			
-			toggleSelectSettings: function( settingsKey ) {
-				if( this.oSettings[settingsKey] ) {
-					this.oSettings[settingsKey] = false;
-				} else {
-					this.oSettings[settingsKey] = true;
-				}
-				this.updateStorage( this.settingsKey, this.oSettings );
-			},
-			
-			saveUrl: function( url ) {
-				if( this.allUrls.indexOf( url ) == -1 ) {
-					if( !( this.allUrls.length < 100 ) ) { // if max capacity has been reached, remove oldest element
-						this.allUrls.shift();
-					}
-					this.allUrls.push( url );
-					this.updateStorage( this.allUrlsKey, this.allUrls );
-				}
-				if( this.prevSessionUrls.indexOf( url ) == -1 ) {
-					this.prevSessionUrls.push( url );
-					this.updateStorage( this.prevSessionUrlsKey, this.prevSessionUrls );
-				}
-			},
-			
-			openDialog: function( sTitle, sContent ) {
-//				var cntrlrObj = this;
-//				var dialog = new Dialog({
-//					title: sTitle,
-//					type: 'Message',
-//					content: new Text({
-//						text: sContent
-//					}),
-//					beginButton: new Button({
-//						text: cntrlrObj.oResourceModel.getText("DIALOG_OK_BTN_TEXT"),
-//						press: function () {
-//							dialog.close();
-//						}
-//					}),
-//					afterClose: function() {
-//						dialog.destroy();
-//					}
-//				});
-//				dialog.open();
+			openContentWindow: function( sTitle, sContent ) {
 				var popupWindow = window.open( "", sTitle, "width=600,height=700");
 				popupWindow.document.write( "<textarea rows=\"44\" cols=\"80\" wrap='off' readonly>" + sContent + "</textarea>" ); 
 			}

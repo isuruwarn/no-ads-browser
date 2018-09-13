@@ -3,9 +3,8 @@
 		xmlns:mvc="sap.ui.core.mvc"
 		xmlns:html="http://www.w3.org/1999/xhtml"
 		xmlns="sap.m">
-	<TabContainer id="browserTabContainer" width="100%"
-			showAddNewButton="true" class="sapUiResponsiveContentPadding"
-			addNewButtonPress="newTabHandler" itemClose="tabCloseHandler">
+	<TabContainer id="browserTabContainer" width="100%" class="sapUiResponsiveContentPadding" showAddNewButton="true"
+			addNewButtonPress="openNewTab" itemSelect="selectTab" itemClose="closeTab">
 		<items>
 		</items>
 	</TabContainer>
