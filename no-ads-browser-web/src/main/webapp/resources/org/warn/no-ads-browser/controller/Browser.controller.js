@@ -11,7 +11,7 @@ sap.ui.define([
 		
 		"use strict";
 
-		return Controller.extend("org.warn.no-ads-browser.TabContainer", {
+		return Controller.extend("org.warn.no-ads-browser.Browser", {
 			
 			onInit: function() {
 				this.svcUrl = "/no-ads-browser-web/svc/rs";
@@ -89,18 +89,7 @@ sap.ui.define([
 			},
 			
 			openSettingsMenu: function(oEvent) {
-				var oButton = oEvent.getSource();
-				// create menu only once
-				if (!this.settingsMenu) {
-					this.settingsMenu = sap.ui.xmlfragment( "org.warn.no-ads-browser.view.MenuItemEventing", this );
-					this.getView().addDependent(this.settingsMenu);
-				}
-				var eDock = sap.ui.core.Popup.Dock;
-				var settings = this.settingsManager.getSettings();
-				var settingsModel = new JSONModel();
-				settingsModel.setData( settings );
-				this.settingsMenu.setModel( settingsModel );
-				this.settingsMenu.open( this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginBottom, oButton );
+				this.settingsManager.openSettingsMenu( oEvent, this );
 			},
 			
 			selectMenuItem: function(oEvent) {

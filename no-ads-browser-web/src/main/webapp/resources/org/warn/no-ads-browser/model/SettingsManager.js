@@ -1,7 +1,8 @@
 sap.ui.define([
 	"sap/ui/base/ManagedObject",
+	'sap/ui/model/json/JSONModel',
 	'org/warn/no-ads-browser/util/LocalStorageUtil'
-], function( ManagedObject, LocalStorageUtil ) {
+], function( ManagedObject, JSONModel, LocalStorageUtil ) {
 	
 	"use strict";
 	
@@ -28,6 +29,21 @@ sap.ui.define([
 				this.storageUtil.updateStorage( this.settingsKey, settings );
 				return settings;
 			}
+		},
+		
+		openSettingsMenu: function( oEvent, controller ) {
+			var oButton = oEvent.getSource();
+			// create menu only once
+			if (!this.settingsMenu) {
+				this.settingsMenu = sap.ui.xmlfragment( "org.warn.no-ads-browser.view.Settings", controller );
+				controller.getView().addDependent(this.settingsMenu);
+			}
+			var eDock = sap.ui.core.Popup.Dock;
+			var settings = this.getSettings();
+			var settingsModel = new JSONModel();
+			settingsModel.setData( settings );
+			this.settingsMenu.setModel( settingsModel );
+			this.settingsMenu.open( this._bKeyboard, oButton, eDock.BeginTop, eDock.BeginBottom, oButton );
 		},
 		
 		toggleSelectSettings: function( key ) {

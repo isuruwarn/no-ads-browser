@@ -74,6 +74,8 @@ public class MainController extends HttpServlet {
 				response.getWriter().append( mapper.writeValueAsString(dto) );
 			}
 		}
+		
+		// TODO error handling
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -44,7 +44,7 @@
 	},
 	"sap.ui5": {
 		"rootView": {
-			"viewName": "org.warn.no-ads-browser.view.TabContainer",
+			"viewName": "org.warn.no-ads-browser.view.Browser",
 			"async": true,
 			"type": "XML"
 		},

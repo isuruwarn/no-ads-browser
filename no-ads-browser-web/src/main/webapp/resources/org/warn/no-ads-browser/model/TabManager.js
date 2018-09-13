@@ -23,7 +23,7 @@ sap.ui.define([
 		},
 		
 		createNewTab: function( sUrl, controller ) {
-			var newTab = sap.ui.xmlfragment( "org.warn.no-ads-browser.view.TabContainerItem", controller );
+			var newTab = sap.ui.xmlfragment( "org.warn.no-ads-browser.view.BrowserTab", controller );
 			var sTitle = sUrl;
 			if( !sUrl ) {
 				sTitle = "New Tab";
@@ -54,7 +54,7 @@ sap.ui.define([
 			}
 		},
 		
-		// TODO move to better location?
+		// TODO move to a separate util class?
 		saveUrl: function( url ) {
 			if( this.allUrls.indexOf( url ) == -1 ) {
 				if( !( this.allUrls.length < 100 ) ) { // if max capacity has been reached, remove oldest element
@@ -69,7 +69,7 @@ sap.ui.define([
 			}
 		},
 		
-		// TODO move to better location?
+		// TODO move to a separate util class?
 		discardUrls: function() {
 			this.storageUtil.deleteFromStorage( this.allUrlsKey );
 			this.storageUtil.deleteFromStorage( this.prevSessionUrlsKey );

@@ -3,11 +3,6 @@
 	xmlns="sap.m">
 	<TabContainerItem name="{/title}" modified="false" width="100%">
 		<content width="100%">
-			<!--<HBox justifyContent="Start" width="100%">
-				<Input value="{/url}" width="70%"/>
-				<Button text="{i18n>GO_BTN_TEXT}" press="go"/>
-				<Button text="{i18n>SETTINGS_BTN_TEXT}" press="settings"/>
-			</HBox>-->
 			<Input value="{/url}" width="70%"/>
 			<Button text="{i18n>GO_BTN_TEXT}" press="go"/>
 			<Button text="{i18n>SETTINGS_BTN_TEXT}" press="openSettingsMenu"/>

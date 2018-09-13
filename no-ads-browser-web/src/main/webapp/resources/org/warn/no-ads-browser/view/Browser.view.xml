@@ -1,4 +1,4 @@
-<mvc:View controllerName="org.warn.no-ads-browser.controller.TabContainer"
+<mvc:View controllerName="org.warn.no-ads-browser.controller.Browser"
 		height="100%"
 		xmlns:mvc="sap.ui.core.mvc"
 		xmlns:html="http://www.w3.org/1999/xhtml"
