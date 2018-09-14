@@ -70,6 +70,9 @@ public class MainController extends HttpServlet {
 				}
 				dto.setUrl(url);
 				
+				// this is required to properly render unicode characters
+				response.setContentType("text/html; charset=UTF-8");
+				
 				ObjectMapper mapper = new ObjectMapper();
 				response.getWriter().append( mapper.writeValueAsString(dto) );
 			}
