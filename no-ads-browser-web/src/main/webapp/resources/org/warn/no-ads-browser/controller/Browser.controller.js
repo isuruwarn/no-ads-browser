@@ -14,7 +14,12 @@ sap.ui.define([
 		return Controller.extend("org.warn.no-ads-browser.Browser", {
 			
 			onInit: function() {
-				this.svcUrl = "/no-ads-browser-web/svc/rs";
+				
+				this.svcUrl = "/svc/rs/main";
+				this.hostname = location.hostname;
+				if( this.hostname.indexOf('localhost') != -1 ) {
+					this.svcUrl = "/no-ads-browser-web" + this.svcUrl;
+				}
 				this.oResourceModel = this.getView().getModel("i18n").getResourceBundle();
 				this.settingsManager = new SettingsManager();
 				this.tabManager = new TabManager();

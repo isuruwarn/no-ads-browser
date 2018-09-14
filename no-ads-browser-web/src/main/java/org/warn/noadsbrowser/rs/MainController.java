@@ -21,7 +21,7 @@ import org.warn.noadsbrowser.util.WebUtil;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet("/svc/rs")
+@WebServlet("/svc/rs/main")
 public class MainController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
