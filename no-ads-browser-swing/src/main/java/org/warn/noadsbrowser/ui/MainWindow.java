@@ -33,7 +33,7 @@ import org.warn.noadsbrowser.ui.listeners.UrlsPopupMouseAdapter;
 
 public class MainWindow {
 	
-	public static final String TITLE = "Webpage Reader";
+	public static final String TITLE = "No Ads Browser";
 	public static final String VIEW_INPUT_HTML_TITLE = "Input HTML - ";
 	public static final String VIEW_OUTPUT_HTML_TITLE = "Output HTML - ";
 	public static final String BACK_BTN_ACTION = "\u21e6";
@@ -50,21 +50,13 @@ public class MainWindow {
 	public static final String DISABLE_IMAGES_ACTION = "Disable Images";
 	public static final String REMOVE_META_TAGS_ACTION = "Remove meta tags";
 	public static final String REMOVE_DATA_ATTRS_ACTION = "Remove data attributes";
-	//public static final String RESET_BACKGROUND_COLOR_ACTION = "Reset background color";
 	public static final String CLEAR_CACHE_ACTION = "Clear cache";
 	
 	private static final int PREF_FRAME_WIDTH = 1000;
 	private static final int PREF_FRAME_HEIGHT = 1000;
 	private static final int MIN_FRAME_WIDTH = 1000;
 	private static final int MIN_FRAME_HEIGHT = 1000;
-	//private static final int PREF_TEXTAREA_WIDTH = 980;
-	//private static final int PREF_TEXTAREA_HEIGHT = 900;
-	//private static final int MIN_TEXTAREA_WIDTH = 980;
-	//private static final int MIN_TEXTAREA_HEIGHT = 900;
-	//private static final int PREF_ADDRESS_BAR_WIDTH = 775;
 	private static final int PREF_ADDRESS_BAR_HEIGHT = 25;
-	//private static final int MIN_ADDRESS_BAR_WIDTH = 775;
-	//private static final int MIN_ADDRESS_BAR_HEIGHT = 25;
 	private static final int PREF_GO_BTN_WIDTH = 50;
 	private static final int PREF_GO_BTN_HEIGHT = 25;
 	private static final int MIN_GO_BTN_WIDTH = 50;
@@ -92,8 +84,6 @@ public class MainWindow {
 		forwardBtn.setMinimumSize( new Dimension( MIN_GO_BTN_WIDTH, MIN_GO_BTN_HEIGHT ) );
 		
 		JTextField addressBar = new JTextField();
-		//addressBar.setPreferredSize( new Dimension( PREF_ADDRESS_BAR_WIDTH, PREF_ADDRESS_BAR_HEIGHT ) );
-		//addressBar.setMinimumSize( new Dimension( MIN_ADDRESS_BAR_WIDTH, MIN_ADDRESS_BAR_HEIGHT ) );
 		if(url!=null) {
 			addressBar.setText(url);
 		}
@@ -105,20 +95,14 @@ public class MainWindow {
 		
 		JEditorPane htmlTextArea = new JEditorPane();
 		htmlTextArea.setEditable(false);
-		////htmlTextArea.setSize( new Dimension( MIN_TEXTAREA_WIDTH, MIN_TEXTAREA_HEIGHT ) );
-		//htmlTextArea.setMinimumSize( new Dimension( MIN_TEXTAREA_WIDTH, MIN_TEXTAREA_HEIGHT ) );
 		
 		JScrollPane textScrollPane = new JScrollPane(htmlTextArea);
 		textScrollPane.setVerticalScrollBarPolicy( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS );
 		textScrollPane.setViewportView(htmlTextArea);
-		//textScrollPane.setBorder( BorderFactory.createLineBorder(Color.red) );
-		//textScrollPane.setPreferredSize( new Dimension( PREF_TEXTAREA_WIDTH, PREF_TEXTAREA_HEIGHT ) );
-		//textScrollPane.setMinimumSize( new Dimension( MIN_TEXTAREA_WIDTH, MIN_TEXTAREA_HEIGHT ) );
 		
 		JLabel statusBar = new JLabel();
 		statusBar.setPreferredSize( new Dimension( PREF_STATUS_BAR_WIDTH, PREF_STATUS_BAR_HEIGHT ) );
 		statusBar.setMinimumSize( new Dimension( MIN_STATUS_BAR_WIDTH, MIN_STATUS_BAR_HEIGHT ) );
-		//statusBar.setBorder( BorderFactory.createLineBorder(Color.red) );
 		
 		JMenuItem paste = new JMenuItem( PASTE_ACTION );
 		JMenuItem pasteAndGo = new JMenuItem( PASTE_AND_GO_ACTION );
@@ -134,7 +118,6 @@ public class MainWindow {
 		JCheckBoxMenuItem disableImages = new JCheckBoxMenuItem( DISABLE_IMAGES_ACTION );
 		JCheckBoxMenuItem removeMetaTags = new JCheckBoxMenuItem( REMOVE_META_TAGS_ACTION );
 		JCheckBoxMenuItem removeDataAttrs = new JCheckBoxMenuItem( REMOVE_DATA_ATTRS_ACTION );
-		//JMenuItem rsetBgColor = new JMenuItem( RESET_BACKGROUND_COLOR_ACTION );
 		JMenuItem clearCache = new JMenuItem( CLEAR_CACHE_ACTION );
 		
 		ButtonGroup displayFormatGroup = new ButtonGroup();
@@ -157,7 +140,6 @@ public class MainWindow {
 		settingsMenu.add(removeMetaTags);
 		settingsMenu.add(removeDataAttrs);
 		settingsMenu.addSeparator();
-		//settingsMenu.add(rsetBgColor);
 		settingsMenu.add(clearCache);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -250,8 +232,6 @@ public class MainWindow {
 		// frame for holding everything
 		JFrame webpageFrame = new JFrame( TITLE );
 		webpageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//webpageFrame.setPreferredSize( new Dimension( PREF_FRAME_WIDTH, PREF_FRAME_HEIGHT ) );
-		//webpageFrame.setMinimumSize( new Dimension( MIN_FRAME_WIDTH, MIN_FRAME_HEIGHT ) );
 		webpageFrame.add( mainScrollPane );
 		//webpageFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); // fullscreen
 		webpageFrame.pack();
@@ -272,7 +252,6 @@ public class MainWindow {
 		disableImages.addActionListener(mainActionListener);
 		removeMetaTags.addActionListener(mainActionListener);
 		removeDataAttrs.addActionListener(mainActionListener);
-		//rsetBgColor.addActionListener(mainActionListener);
 		clearCache.addActionListener(mainActionListener);
 		
 		UrlsPopupMouseAdapter  urlsPopupMouseAdapter = new UrlsPopupMouseAdapter( addressBar, goBtn );
