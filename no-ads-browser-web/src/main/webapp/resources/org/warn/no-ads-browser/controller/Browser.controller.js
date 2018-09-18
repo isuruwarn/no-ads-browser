@@ -46,12 +46,19 @@ sap.ui.define([
 				
 				if( url && url!="" ) {
 					
-					sap.ui.core.BusyIndicator.show();
+					// to reduce data transferred over the network, retrieve original source only if requested
+					var includeInputSrc = false;
+					if( oEvent.getParameter("item") && 
+						oEvent.getParameter("item").getText() == this.oResourceModel.getText("VIEW_INPUT_MENU_TEXT") ) {
+						includeInputSrc = true;
+					}
 					
 					url = url.trim();
 					var oSettings = this.settingsManager.getSettings();
 					var queryStr = "?nbturl=" + url + '&nbtxt=' + oSettings.plainTextView + '&nbcss=' + oSettings.cssDisabled 
-						+ '&nbimgs=' + oSettings.imagesDisabled + '&nbmeta=' + oSettings.removeMetaTags;
+						+ '&nbimgs=' + oSettings.imagesDisabled + '&nbmeta=' + oSettings.removeMetaTags + '&nbinputsrc=' + includeInputSrc;
+					
+					sap.ui.core.BusyIndicator.show();
 					
 					$.ajax({
 						url: this.svcUrl + queryStr,
@@ -71,7 +78,7 @@ sap.ui.define([
 									url: data.url,
 									title: data.title,
 									message: data.message,
-									input: data.input,
+									input: includeInputSrc?data.input:"",
 									output: data.output
 								});
 								cntrlrObj.oSelectedTabItem.setModel(oModel);
@@ -86,7 +93,6 @@ sap.ui.define([
 						},
 						error : function(data){
 							sap.ui.core.BusyIndicator.hide();
-							
 						}
 	
 					});
@@ -112,6 +118,7 @@ sap.ui.define([
 					this.go(oEvent);
 					
 				} else if( selectedItem == this.oResourceModel.getText("VIEW_INPUT_MENU_TEXT") ) {
+					this.go(oEvent);
 					var oModel = this.oSelectedTabItem.getModel();
 					if( oModel ) {
 						var inputSrc = oModel.getData().input;

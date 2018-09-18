@@ -22,9 +22,9 @@ sap.ui.define([
 				settings = {
 						htmlView: true,
 						plainTextView: false,
-						cssDisabled: false,
+						cssDisabled: true,
 						imagesDisabled: false,
-						removeMetaTags: false,
+						removeMetaTags: true,
 					};
 				this.storageUtil.updateStorage( this.settingsKey, settings );
 				return settings;

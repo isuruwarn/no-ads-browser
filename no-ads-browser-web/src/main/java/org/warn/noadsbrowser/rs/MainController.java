@@ -49,6 +49,7 @@ public class MainController extends HttpServlet {
 				boolean cssDisabled = request.getParameter("nbcss")==null?false:Boolean.valueOf( request.getParameter("nbcss") );
 				boolean imagesDisabled = request.getParameter("nbimgs")==null?false:Boolean.valueOf( request.getParameter("nbimgs") );
 				boolean removeMetaTags = request.getParameter("nbmeta")==null?false:Boolean.valueOf( request.getParameter("nbmeta") );
+				boolean includeInputSrc = request.getParameter("nbinputsrc")==null?false:Boolean.valueOf( request.getParameter("nbinputsrc") );
 				
 				StringBuilder webContent = null;
 				HttpDTO httpDTO = ApacheHttpClient.read(url);
@@ -61,7 +62,9 @@ public class MainController extends HttpServlet {
 				Page page = HtmlProcessor.process( webContent, cssDisabled, imagesDisabled, removeMetaTags, true );
 				dto.setTitle( page.getTitle() );
 				dto.setMessage( page.getMessage() );
-				dto.setInput( page.getInputHTML() );
+				if( includeInputSrc ) {
+					dto.setInput( page.getInputHTML() );
+				}
 				if( plainText ) {
 					String text = TextExtractor.extract( page.getDocument() ).toString().replaceAll("\n", "<br>");
 					dto.setOutput( new StringBuilder( text ) );
